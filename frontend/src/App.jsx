@@ -5,6 +5,12 @@ import { useNavigate } from "react-router-dom";
 import stone from "./assets/stone.png";
 import paper from "./assets/papers.png";
 import scissors from "./assets/Scissors.jpg";
+import icon from "./assets/Center-img.png";
+import bg from "./assets/Background-img.png";
+
+import { User, History} from "lucide-react";
+import { GoArrowRight } from "react-icons/go";
+
 const API = import.meta.env.VITE_API_URL;
 
 const options = { stone, paper, scissors };
@@ -108,62 +114,70 @@ function App() {
   // NAME INPUT
   if (!start) {
     return (
-      <>
-        <div className="bg-black text-white py-3 text-center text-lg md:text-2xl font-bold">
+      <div className="h-screen" style={{backgroundImage: `url(${bg})`}}>
+        <div className="bg-gray-900 text-white py-3 text-center text-[28px] h-[70px] font-bold">
           🎮 Stone Paper Scissors
         </div>
+          
+        <div className="flex justify-center"
+        >
+          <div className="mt-16 bg-white px-10 rounded-[18px] shadow-xl w-[420px] text-center h-[490px] pt-4">
+            <img className="w-[130px] inline" src={icon} alt="" />
 
-        <div className="h-screen flex items-center justify-center bg-gray-100">
-          <div className="bg-white p-6 rounded shadow w-80 text-center">
-            <h2 className="text-xl font-bold mb-4">Enter Player Names</h2>
+            <h2 className="text-[23px] font-bold mb-1">Enter Player Names</h2>
+            <p className="text-[15px] mb-5 text-gray-500">Add to Players to start the game</p>
 
-            <input
-              className="border p-2 w-full mb-3"
-              placeholder="Player 1"
-              value={name1}
-              onChange={(e) => setName1(e.target.value)}
-            />
+            <div className="flex w-full mb-3 ">
+                  <User className="text-purple-600 h-11 border-2 border-r-0 w-12 px-[10px] rounded-l-xl" />
+                  <input
+                    className="border-2 border-l-0 py-2 w-full rounded-r-xl outline-none"
+                    placeholder="Player 1"
+                    value={name1}
+                    onChange={(e) => setName1(e.target.value)}
+                  />
+            </div>
 
-            <input
-              className="border p-2 w-full mb-3"
-              placeholder="Player 2"
-              value={name2}
-              onChange={(e) => setName2(e.target.value)}
-            />
+            <div className="flex w-full mb-4 ">
+                  <User className="text-purple-600 h-11 border-2 border-r-0 w-12 px-[10px] rounded-l-xl" />
+                  <input
+                    className="border-2 border-l-0 py-2 w-full rounded-r-xl outline-none"
+                    placeholder="Player 2"
+                    value={name2}
+                    onChange={(e) => setName2(e.target.value)}
+                  />
+            </div>
 
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded w-full"
+              className="bg-gradient-to-r from-indigo-600 to-blue-500 bg-blue-500 text-[17px] text-white h-12 px-4 py-2 rounded-lg w-full font-medium"
               onClick={() => setStart(true)}
             >
-              Start Game
+              Start Game <GoArrowRight className="w-5 h-6 inline pb-1 " />
             </button>
 
+            <div className="border-b-2 w-[85%] mt-6 mx-auto"></div>
+            <p className="bg-white w-10 mx-auto relative -top-3 text-[13px] font-medium text-gray-500">OR</p>
+
             <button
-              className="mt-3 text-blue-600 underline"
+              className="text-indigo-600"
               onClick={() => navigate("/history")}
             >
-              View History
+              <History className="w-5 h-5 inline mr-1" />
+              <span className="pt-2 text-[14px] font-medium">View History</span> 
             </button>
           </div>
         </div>
-      </>
+      </ div>
     );
   }
 
   // GAME SCREEN
   return (
-    <>
-      <div className="bg-black text-white py-3 text-center text-lg md:text-2xl font-bold">
+    <div className="h-screen" style={{backgroundImage: `url(${bg})`}}>
+      <div className="bg-gray-900 text-white py-3 text-center text-[28px] h-[70px] font-bold">
         🎮 Stone Paper Scissors
       </div>
 
       <div className="p-6 text-center">
-        <button
-          className="bg-gray-800 text-white px-4 py-2 rounded mb-4"
-          onClick={() => navigate("/history")}
-        >
-          View History
-        </button>
 
         <h1 className="text-2xl font-bold mb-4">
           Round {rounds.length + 1}/6
@@ -176,7 +190,7 @@ function App() {
               key={o}
               src={options[o]}
               alt={o}
-              className={`w-20 cursor-pointer border-2 ${
+              className={`w-20 cursor-pointer border-2 rounded-[50%] ${
                 choice1 === o ? "border-green-500" : "border-transparent"
               }`}
               onClick={() => setChoice1(o)}
@@ -185,13 +199,13 @@ function App() {
         </div>
 
         <h2 className="font-semibold">{name2}</h2>
-        <div className="flex justify-center gap-4 mb-4">
+        <div className="flex justify-center gap-4 mb-4 ">
           {Object.keys(options).map((o) => (
             <img
               key={o}
               src={options[o]}
               alt={o}
-              className={`w-20 cursor-pointer border-2 ${
+              className={`w-20 cursor-pointer border-2 rounded-[50%] ${
                 choice2 === o ? "border-blue-500" : "border-transparent"
               }`}
               onClick={() => setChoice2(o)}
@@ -200,7 +214,7 @@ function App() {
         </div>
 
         <button
-          className="bg-green-500 text-white px-6 py-2 rounded"
+          className="bg-gradient-to-r from-green-600 to-green-500 bg-green-500 text-[15px] text-white h-10 px-4 py-2 rounded-lg font-medium"
           disabled={!choice1 || !choice2 || rounds.length >= 6}
           onClick={handleRound}
         >
@@ -216,7 +230,7 @@ function App() {
           ))}
         </div>
       </div>
-    </>
+    </ div>
   );
 }
 

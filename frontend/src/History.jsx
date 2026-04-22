@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import bg from "./assets/Background-img.png";
+
 const API = import.meta.env.VITE_API_URL;
 
 function History() {
@@ -11,7 +13,7 @@ function History() {
   }, []);
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen text-center">
+    <div className="p-6 bg-gray-100 min-h-screen text-center" style={{backgroundImage: `url(${bg})`}} >
       <h1 className="text-2xl font-bold mb-6">Game History</h1>
 
       {games.length === 0 && <p>No games found</p>}
